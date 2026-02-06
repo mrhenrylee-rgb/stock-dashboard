@@ -40,7 +40,8 @@ export default function Dashboard() {
 
   function fetchPrices() {
     setLoading(true);
-    fetch("/api/stocks")
+    fetch("/api/stocks?symbols=" + watchlist.join(","))
+
       .then(function(r) { return r.json(); })
       .then(function(data) {
         if (data.stocks) {
