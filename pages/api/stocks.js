@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  var API_KEY = "d637n2hr01qnpqg04s20";
+  var API_KEY = "d637n2hr01qnpqg04s20d637n2hr01qnpqg04s2g";
   var defaultSymbols = ["AMZN","GOOGL","MSFT","NVDA","AAPL","TSLA","META","PLTR","QQQ"];
   var query = req.query.symbols;
   var symbols = query ? query.split(",") : defaultSymbols;
