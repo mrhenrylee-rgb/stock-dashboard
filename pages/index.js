@@ -38,11 +38,10 @@ export default function Dashboard() {
   var lastUpdate = updateState[0];
   var setLastUpdate = updateState[1];
 
-function fetchPrices() {
+function fetchPrices(tickers) {
+    var syms = tickers || watchlist;
     setLoading(true);
-    fetch("/api/stocks?symbols=" + watchlist.join(","))
-      .then(function(r) { return r.json(); })
-
+    fetch("/api/stocks?symbols=" + syms.join(","))
       .then(function(r) { return r.json(); })
       .then(function(data) {
         if (data.stocks) {
@@ -59,10 +58,9 @@ function fetchPrices() {
   }
 
   useEffect(function() {
-    fetchPrices();
-    var interval = setInterval(fetchPrices, 1800000);
-    return function() { clearInterval(interval); };
-  }, []);
+    fetchPrices(watchlist);
+  }, [watchlist]);
+
 
   function addTicker() {
     var t = newTicker.toUpperCase().trim();
