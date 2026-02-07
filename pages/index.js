@@ -56,6 +56,25 @@ function fetchPrices(tickers) {
       })
       .catch(function() { setLoading(false); });
   }
+    function fetchNews(symbol) {
+    fetch("/api/news?symbol=" + symbol)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.news) {
+          setNews(function(prev) {
+            var updated = Object.assign({}, prev);
+            updated[symbol] = data.news;
+            return updated;
+          });
+        }
+      })
+      .catch(function() {});
+  }
+
+  useEffect(function() {
+    if (selected) fetchNews(selected);
+  }, [selected]);
+
 
   useEffect(function() {
     fetchPrices(watchlist);
